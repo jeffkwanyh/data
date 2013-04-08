@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+    
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      google.load('visualization', '1', {'packages': ['table']});
+
+	function drawVisualization() {
+  	// To see the data that this visualization uses, browse to
+  	// http://spreadsheets.google.com/ccc?key=pCQbetd-CptGXxxQIG7VFIQ
+  	var query = new google.visualization.Query(
+      //'https://docs.google.com/spreadsheet/ccc?key=0AncMRkejfB-XdEh2OHdBLUVJZFhEWmE4VHhtLTlxbWc#gid=0'
+      'https://docs.google.com/spreadsheet/ccc?key=0AncMRkejfB-XdFFKQ1lNWTEtdU9XOUVOcnJxTUwyUlE#gid=0');
+
+  	// Apply query language.
+  	//query.setQuery('SELECT C WHERE D > 450');
+	query.setQuery('SELECT A, B, C, D, E WHERE C="K1-Y3"');
+	//query.setQuery('SELECT B, COUNT(D) GROUP BY B');
+	//query.setQuery('SELECT A, COUNT(B) GROUP BY A PIVOT B FORMAT A "MMM yyyy"');
+	//query.setQuery('SELECT TODATE(A), SUM(COUNT(C)) GROUP BY TODATE(A) PIVOT B');
+
+  	// Send the query with a callback function.
+  	query.send(handleQueryResponse);
+	}
+
+	function handleQueryResponse(response) {
+  		if (response.isError()) {
+    		alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+   		return;
+  		}
+
+  		var data = response.getDataTable();
+  		var options = {
+  			title: "Total Responses by Month",
+  			//curveType: "function",
+  			//width: "800",
+  			height: "480",
+  			hAxis: { title: "Months", format:"MMM", viewWindowMode: "pretty"},
+  			vAxis: { title: "No. of Responses", baseline: "0", viewWindowMode: "pretty"}
+  		};
+  		
+  		var table_options = {
+			showRowNumber: "true",
+  			//allowHtml: "true"
+  		}
+
+  	//var formatter = new google.visualization.DateFormat({formatType:'medium'});
+  	//formatter.format(data, 0);
+  		  	
+  	trm_chart = new google.visualization.ColumnChart(document.getElementById('TotalResponsesByMonth'));
+  	trm_chart.draw(data, options);
+  	
+  	var trm_table = new google.visualization.Table(document.getElementById('TotalResponsesByMonthTable'));
+  	
+  	trm_table.draw(data, table_options);
+
+  	/*var dataView = new google.visualization.DataView(data);
+  	dataView.setColumns([0,1,3]);
+  	var table2 = new google.visualization.Table(document.getElementById('table_div2'));
+  	table2.draw(dataView, null); */
+  	//var visual = new google.visualization.BarChart(document.getElementById('barchart'));
+  	//visual.draw(data, options);
+	}
+	
+	// Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(drawVisualization);
+    </script>
+  </head>
+
+  <body>
+    <div id="TotalResponsesByMonth"></div>
+    <div id="TotalResponsesByMonthTable" style="width:800"></div>
+  </body>
+</html>
