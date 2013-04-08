@@ -17,10 +17,9 @@
 
   	// Apply query language.
   	//query.setQuery('SELECT C WHERE D > 450');
-	query.setQuery('SELECT A, B, C, D, E WHERE C="K1-Y3"');
+	//query.setQuery('SELECT A, B, C, D, E WHERE C="K1-Y3"');
 	//query.setQuery('SELECT B, COUNT(D) GROUP BY B');
-	//query.setQuery('SELECT A, COUNT(B) GROUP BY A PIVOT B FORMAT A "MMM yyyy"');
-	//query.setQuery('SELECT TODATE(A), SUM(COUNT(C)) GROUP BY TODATE(A) PIVOT B');
+  	query.setQuery('SELECT TODATE(A), COUNT(C) GROUP BY TODATE(A) PIVOT D');
 
   	// Send the query with a callback function.
   	query.send(handleQueryResponse);
@@ -36,10 +35,10 @@
   		var options = {
   			title: "Total Responses by Month",
   			//curveType: "function",
-  			//width: "800",
-  			height: "480",
-  			hAxis: { title: "Months", format:"MMM", viewWindowMode: "pretty"},
-  			vAxis: { title: "No. of Responses", baseline: "0", viewWindowMode: "pretty"}
+  			width: "1400",
+  			height: "640",
+  			hAxis: { title: "Months", format:"MMM", baseline: "0", viewWindowMode: "pretty"},
+  			vAxis: { title: "No. of Responses", baseline: "0", viewWindowMode: "pretty", gridlines: { count: "1" }}
   		};
   		
   		var table_options = {
