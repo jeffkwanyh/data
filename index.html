@@ -2,60 +2,22 @@
   <head>
     <!--Load the AJAX API-->
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-    
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart']});
-      google.load('visualization', '1', {'packages': ['table']});
-
-	function drawVisualization() {
-  	var query = new google.visualization.Query(
-      //'https://docs.google.com/spreadsheet/ccc?key=0AncMRkejfB-XdFFKQ1lNWTEtdU9XOUVOcnJxTUwyUlE#gid=1');
-  	  'https://docs.google.com/spreadsheet/tq?key=0AncMRkejfB-XdFFKQ1lNWTEtdU9XOUVOcnJxTUwyUlE&gid=3&range=K1%3AS7&headers=-1');
-
-  	// Apply query language.
-  	query.setQuery('SELECT *');
-
-  	// Send the query with a callback function.
-  	query.send(handleQueryResponse);
-	}
-
-	function handleQueryResponse(response) {
-  		if (response.isError()) {
-    		alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-   		return;
-  		}
-
-  		var data = response.getDataTable();
-  		var options = {
-  			title: "Total Responses by Month",
-  			//curveType: "function",
-  			//width: "1400",
-  			height: "480",
-  			hAxis: { title: "Months", format:"MMM", baseline: "0", viewWindowMode: "pretty"},
-  			vAxis: { title: "No. of Responses", baseline: "0", viewWindowMode: "pretty", gridlines: { count: "1" }}
-  		};
-  		
-  		var table_options = {
-			showRowNumber: "true",
-  			//allowHtml: "true"
-  		}
-
-  	trm_chart = new google.visualization.LineChart(document.getElementById('TotalResponsesByMonth'));
-  	trm_chart.draw(data, options);
-  	
-  	var trm_table = new google.visualization.Table(document.getElementById('TotalResponsesByMonthTable'));
-  	
-  	trm_table.draw(data, table_options);
-	}
-	
-	// Set a callback to run when the Google Visualization API is loaded.
-    google.setOnLoadCallback(drawVisualization);
-    </script>
+    <script type="text/javascript" src="totalResponsesByMonth.js"></script>
   </head>
 
   <body>
-    <div id="TotalResponsesByMonth"></div>
-    <div id="TotalResponsesByMonthTable" style="width:800"></div>
+  	<h1>SIS@SS WALKTHRU STATS</h1>
+  	
+  	<div>
+  		<h2>Total Overall Responses by HOS</h2>
+  		<div id="OverallResponsesByHOS"></div>
+  		<div id="OverallResponsesByHOSTable"></div>
+  	</div>
+  	
+  	<div>
+  		<h2>Total Responses by Month</h2>
+	    <div id="TotalResponsesByMonth"></div>
+	    <div id="TotalResponsesByMonthTable"></div>
+	</div>
   </body>
 </html>
