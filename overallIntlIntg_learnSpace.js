@@ -30,11 +30,11 @@
 			showRowNumber: "true",
   		}
 
-  	orHOS_chart = new google.visualization.PieChart(document.getElementById('OverallResponsesByHOS'));
+  	chart = new google.visualization.PieChart(document.getElementById('OverallLearningSpace'));
   	orHOS_chart.draw(data, options);
   	
-  	//var orHOS_table = new google.visualization.Table(document.getElementById('OverallResponsesByHOSTable'));
-  	//orHOS_table.draw(data, table_options);
+  	var table = new google.visualization.Table(document.getElementById('OverallLearningSpaceTable'));
+  	orHOS_table.draw(data, table_options);
 	}
 	
 	// Set a callback to run when the Google Visualization API is loaded.
